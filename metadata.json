@@ -1,0 +1,32 @@
+{
+  "name": "axltxl-motd",
+  "version": "0.1.0",
+  "author": "Alejandro Ricoveri",
+  "summary": "A simple yet versatile Puppet MOTD module for Ubuntu-based systems",
+  "license": "MIT",
+  "source": "https://github.com/axltxl/puppet-motd",
+  "project_page": "https://github.com/axltxl/puppet-motd",
+  "issues_url": "https://github.com/axltxl/puppet-motd/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": ">=3.7.0 <4.0.0"
+    }
+  ],
+  "dependencies": [
+    {
+      "name":"puppetlabs/stdlib",
+      "version_requirement":">= 4.4.0 <5.0.0"
+    }
+  ]
+}
+

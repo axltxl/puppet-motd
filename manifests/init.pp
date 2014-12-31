@@ -1,41 +1,43 @@
+# == Class: motd
 #
-# Alejandro Ricoveri
-# ---------------------------
-# MOTD configuration
-# ---------------------------
+# Description goes here
+#
+# === Parameters
+#
+# [*purge*]
+#   Whether to purge all update-motd scripts inside their directory
+#   (/etc/update-motd.d). Defaults to false.
+#
+# [*override_motd*]
+#   If true, /etc/motd will be a symlink to /run/motd.dynamic. This is 
+#   useful for scenarios in which motd is issued from other sources (login_duo).
+#   Defaults to false.
+#
+# === Authors
+#
+# Alejandro Ricoveri <alejandroricoveri@gmail.com>
+#
+# === Copyright
+#
+# Copyright 2014 Alejandro Ricoveri
+#
 
-#
-# MOTD header
-# ---
 class motd (
-  $purge    = $motd::params::purge
+  $purge         = $motd::params::purge,
+  $override_motd = $motd::params::override_motd,
   ) inherits motd::params {
 
   #
-  /*if $purge == true {
+  if $purge == true {
     exec { 'purge_root_dir'
-      command => "rm -rf ${root_dir}/*"
-    }
-  }*/
-
-  #
-  define motd::file (
-    $source, 
-    $ensure = 'latest'
-  ) {
-    file { "${root_dir}/${priority}-${name}":
-      ensure => 'latest',
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0755',
-      source => $source
+      command => "rm -rf ${motd_dir}/*"
     }
   }
   
-  #
-  # MOTD in /etc/motd
-  file { '/etc/motd':
-    ensure => 'link',
-    target => '/run/motd.dynamic',
+  if override_motd == true {
+    file { $motd_file:
+      ensure => 'link',
+      target => $motd_dyn,
+    }
   }
 }
